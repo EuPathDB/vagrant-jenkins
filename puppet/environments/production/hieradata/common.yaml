@@ -12,6 +12,7 @@ ebrc_java::packages:
   - jdk1.8.0_112
 ebrc_java::java_home: /usr/java/jdk1.8.0_112
 ebrc_java::default_ver: /usr/java/jdk1.8.0_112
+ebrc_java::truststore: /etc/pki/ca-trust/extracted/java/cacerts
 
 java_keystore_target: /etc/pki/tls/certs/cacerts
 java_keystore_passwd: graeo5locza

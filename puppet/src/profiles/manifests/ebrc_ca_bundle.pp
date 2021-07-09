@@ -7,11 +7,9 @@
 #  - ebrc_ca::cacert - filename of certificate
 class profiles::ebrc_ca_bundle {
 
-  include ::trusted_ca
+  $ca_name = lookup('ebrc_ca::cacert', String)
 
-  $ca_name = hiera('ebrc_ca::cacert')
-
-  trusted_ca::ca { $ca_name:
+  ca::trust::add { $ca_name:
     source => "puppet:///modules/profiles/ssl/${ca_name}",
   }
 

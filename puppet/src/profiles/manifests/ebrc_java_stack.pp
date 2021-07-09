@@ -16,33 +16,25 @@
 #    ebrc_java::java_home - the full path to $JAVA_HOME, e.g.
 #         ebrc_java::java_home: /usr/java/jdk1.7.0_80
 #
-#  Used by ::profiles::ebrc_ca_keystore
-#   java_keystore_target - the full path to the Java keystore file, e.g.
-#         java_keystore_target: /etc/pki/tls/certs/cacerts
-#   java_keystore_passwd - the keystore password
-#         java_keystore_passwd: graeo5locza
-#
 #  Used by ::profiles::ebrc_ca_bundle
 #    ebrc_ca::cacert - the file name of EBRC's CA
 #       ebrc_ca::cacert: apidb-ca-rsa.crt
 #
 class profiles::ebrc_java_stack {
 
-  include ::ebrc_yum_repo
-  include ::profiles::ebrc_ca_bundle
-  include ::profiles::ebrc_ca_keystore
+  include ::profiles::eupathrepo
 
-  $java_home     = hiera('ebrc_java::java_home')
-  $java_packages = hiera('ebrc_java::packages')
+  $java_home       = lookup('ebrc_java::java_home', String)
+  $java_packages   = lookup('ebrc_java::packages', Array)
+  $java_truststore = lookup('ebrc_java::truststore', String)
 
   class { '::ebrc_java':
-    packages  => $java_packages,
-    java_home => $java_home,
+    packages   => $java_packages,
+    java_home  => $java_home,
+    truststore => $java_truststore,
   }
 
-  Class['::ebrc_yum_repo'] ->
-  Class['::ebrc_java'] ->
-  Class['::profiles::ebrc_ca_bundle'] ->
-  Class['::profiles::ebrc_ca_keystore']
+  Class['::profiles::eupathrepo']
+  -> Class['::ebrc_java']
 
 }

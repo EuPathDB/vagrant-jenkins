@@ -7,7 +7,10 @@ mod 'puppetlabs/java_ks'
 mod 'puppetlabs/stdlib'
 
 mod 'ebrc/ebrc_yum_repo',
-  :git => 'https://github.com/EuPathDB/puppet-ebrc_yum_repo.git'
+  :git => 'git@git.apidb.org:puppet-ebrc_yum_repo.git'
+
+mod "ca",
+  :git => "git@git.apidb.org:puppet-ca"
 
 mod 'ebrc/ebrc_java',
   :git => 'https://github.com/EuPathDB/puppet-ebrc_java.git'
